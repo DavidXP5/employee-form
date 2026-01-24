@@ -1,5 +1,9 @@
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import EmployeeForm from "./components/EmployeeForm";
+import EmployeeList from "./components/EmployeeList";
+import EmployeeDetail from "./components/EmployeeDetail";
+
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -24,16 +28,44 @@ function App() {
     localStorage.setItem("employees", JSON.stringify(employees));
   }, [employees]);
 
-  function addEmployee(employee) {
-    console.log("addEmployee received:", employee);
-    setEmployees((prevEmployees) => [...prevEmployees, employee]);
-  }
+function addEmployee(employee) {
+  const employeeWithId = {
+    ...employee,
+    EmployeeId: Date.now(),
+  };
 
-  return (
-    <div>
-      <EmployeeForm addEmployee={addEmployee} />
-    </div>
-  );
+  console.log("addEmployee received:", employeeWithId);
+
+  setEmployees((prevEmployees) => [
+    ...prevEmployees,
+    employeeWithId,
+  ]);
+}
+
+return (
+  <Router>
+    <Routes>
+      {/* Same page: Form on top + List below */}
+      <Route
+        path="/"
+        element={
+          <>
+            <EmployeeForm addEmployee={addEmployee} />
+            <EmployeeList employees={employees} />
+          </>
+        }
+      />
+
+      {/* Keep detail page working (if your list links to it) */}
+      <Route
+        path="/employees/:id"
+        element={<EmployeeDetail employees={employees} />}
+      />
+    </Routes>
+  </Router>
+);
+
+
 }
 
 export default App;
