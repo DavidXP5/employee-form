@@ -37,7 +37,7 @@ handleSubmit = (event) => {
   render() {
     return (
       <form className="employee-form"onSubmit={this.handleSubmit}>
-        <h2>New Employee</h2>
+        
 
         <input
       type="text"

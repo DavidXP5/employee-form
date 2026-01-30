@@ -43,27 +43,42 @@ function addEmployee(employee) {
 }
 
 return (
-  <Router>
+  <div style={{ maxWidth: "900px", margin: "0 auto", padding: "24px" }}>
+    <header style={{ marginBottom: "18px" }}>
+      <h1 style={{ margin: 0 }}>Employee Management</h1>
+      <p style={{ marginTop: "6px" }}>
+        Add employees, view the list, and review employee details.
+      </p>
+    </header>
+
     <Routes>
-      {/* Same page: Form on top + List below */}
       <Route
         path="/"
         element={
-          <>
-            <EmployeeForm addEmployee={addEmployee} />
-            <EmployeeList employees={employees} />
-          </>
+          <div style={{ display: "grid", gap: "18px" }}>
+            <section style={{ border: "1px solid #ddd", padding: "16px" }}>
+              <h2 style={{ marginTop: 0 }}>New Employee</h2>
+              <EmployeeForm addEmployee={addEmployee} />
+            </section>
+
+            <section style={{ border: "1px solid #ddd", padding: "16px" }}>
+              <h2 style={{ marginTop: 0 }}>Employee List</h2>
+              <EmployeeList employees={employees} />
+            </section>
+          </div>
         }
       />
 
-      {/* Keep detail page working (if your list links to it) */}
       <Route
         path="/employees/:id"
         element={<EmployeeDetail employees={employees} />}
       />
     </Routes>
-  </Router>
+  </div>
 );
+
+
+
 
 
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function EmployeeList(props) {
   return (
     <div className="employee-list">
-      <h1>Employee List</h1>
+      
 
       {props.employees.length === 0 ? (
         <p>No employees saved yet.</p>
